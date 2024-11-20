@@ -1,8 +1,10 @@
 
 # Directories
 /.gradle/
+/**/build
 
 # Files
 .idea/compiler.xml
 .idea/gradle.xml
 .idea/dataSources.xml
+.idea/sqldialects.xml
