@@ -1,0 +1,12 @@
+[versions]
+flyway = "10.21.0"
+spring-boot = "3.3.5"
+
+[plugins]
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
+
+[libraries]
+spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
+flyway-postgres = { group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flyway" }
+database-postgres = { group = "org.postgresql", name = "postgresql" }
+database-h2 = { group = "com.h2database", name = "h2" }
