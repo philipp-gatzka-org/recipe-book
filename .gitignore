@@ -1,0 +1,7 @@
+
+# Directories
+/.gradle/
+
+# Files
+.idea/compiler.xml
+.idea/**/gradle.xml
