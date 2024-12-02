@@ -1,0 +1,10 @@
+[versions]
+jooq = "3.19.15"
+
+[plugins]
+jooq = { id = "org.jooq.jooq-codegen-gradle", version.ref = "jooq" }
+
+[libraries]
+jooq = { group = "org.jooq", name = "jooq", version.ref = "jooq" }
+jooq-meta = { group = "org.jooq", name = "jooq-meta-extensions", version.ref = "jooq" }
+jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version = "24.0.0" }
