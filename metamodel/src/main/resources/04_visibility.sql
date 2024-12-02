@@ -1,1 +1,1 @@
-create type visibility as enum ('public', 'private');
+create type visibility as enum ('PUBLIC', 'PRIVATE');
