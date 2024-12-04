@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/metamodel/recipe-book.metamodel.main.iml" filepath="$PROJECT_DIR$/.idea/modules/metamodel/recipe-book.metamodel.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recipe-book.iml" filepath="$PROJECT_DIR$/recipe-book.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/recipe-book.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/recipe-book.server.main.iml" />
     </modules>
   </component>
 </project>

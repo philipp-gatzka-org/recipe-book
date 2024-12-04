@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+</head>
+<body>
+<div id="container">
+    <div id="content">
+        <h1>Email Verification</h1>
+        <p>Hi <b>$0</b>, <b>$1</b><br>Thank you for signing up to Recipe Book</p>
+        <p>Please verify your email with the code below</p>
+        <code>
+            <b>$2</b>
+        </code>
+        <p>Thank you for using Recipe Book!</p>
+    </div>
+</div>
+<div id="background">
+
+</div>
+</body>
+<style>
+
+    body {
+        margin: 0;
+        background-color: whitesmoke;
+        font-family: "Segoe UI", serif;
+    }
+
+    #container {
+        width: 80%;
+        margin-left: 10%;
+        background-color: white;
+        margin-top: 50px;
+    }
+
+    #content {
+        text-align: center;
+        padding: 25px;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    code {
+        background-color: #eeeeee;
+        padding: 10px;
+    }
+
+    #background {
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        top: 0;
+        background-color: #282a36;
+        height: 150px;
+    }
+</style>
+</html>
