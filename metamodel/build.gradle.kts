@@ -1,34 +1,60 @@
 import org.jooq.meta.jaxb.MatcherTransformType
+import org.testcontainers.containers.PostgreSQLContainer
 
 plugins {
     id("java-library")
     alias(libs.plugins.jooq)
+    alias(libs.plugins.flyway)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-    sourceSets["main"].java {
-        srcDir("build/generated-sources/jooq")
+buildscript {
+    dependencies {
+        classpath(platform(libs.spring.boot.dependencies))
+        classpath(libs.testcontainers.postgresql)
+        classpath(libs.database.postgres)
+        classpath(libs.flyway.postgres)
     }
 }
 
+val postgresContainer =
+    if (tasks.jooqCodegen.name in project.gradle.startParameter.taskNames || tasks.flywayMigrate.name in project.gradle.startParameter.taskNames) {
+        PostgreSQLContainer<Nothing>("postgres:latest").apply {
+            withDatabaseName("recipe_book")
+            withUsername("postgres")
+            withPassword("postgres")
+            start()
+        }
+    } else {
+        null
+    }
+
 dependencies {
+    jooqCodegen(platform(libs.spring.boot.dependencies))
+    jooqCodegen(libs.database.postgres)
+
     implementation(libs.jooq)
-    implementation(libs.jetbrains.annotations)
-    jooqCodegen(libs.jooq.meta)
+}
+
+flyway {
+    url = postgresContainer?.jdbcUrl
+    user = postgresContainer?.username
+    password = postgresContainer?.password
+    schemas = arrayOf("recipe_book")
 }
 
 jooq {
     configuration {
         generator {
             database {
-                name = "org.jooq.meta.extensions.ddl.DDLDatabase"
-                properties {
-                    property {
-                        key = "scripts"
-                        value = "src/main/resources"
-                    }
+                jdbc {
+                    url = postgresContainer?.jdbcUrl
+                    driver = "org.postgresql.Driver"
+                    username = postgresContainer?.username
+                    password = postgresContainer?.password
+                    inputSchema = "recipe_book"
+                    isIncludeSequences = true
+                    isIncludeSystemSequences = true
+                    excludes = "flyway_schema_history"
                 }
             }
             strategy {
@@ -48,28 +74,22 @@ jooq {
             }
             generate {
                 isFluentSetters = true
+                isSequences = true
             }
         }
     }
 }
 
 tasks {
-    withType<JavaCompile> {
-        dependsOn(jooqCodegen)
+    jooqCodegen {
+        dependsOn(flywayMigrate)
     }
-    register("createSchemaFile") {
-        val tablesDir = file("src/main/resources")
-        val outputFile = file("${layout.buildDirectory.asFile.get()}/schema.sql")
+}
 
-        doLast {
-            outputFile.delete()
-            outputFile.parentFile.mkdirs()
-            tablesDir.listFiles()?.sorted()?.forEach { tableFile ->
-                if (tableFile.isFile) {
-                    outputFile.appendText("-- ${tableFile.name}\n")
-                    outputFile.appendText("${tableFile.readText()}\n\n")
-                }
-            }
-        }
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    sourceSets["main"].java {
+        srcDir("build/generated-sources/jooq")
     }
 }
