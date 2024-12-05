@@ -1,5 +1,6 @@
 package ch.gatzka.rest.controller;
 
+import ch.gatzka.constants.Routes;
 import ch.gatzka.rest.Validator;
 import ch.gatzka.rest.endpoint.AccountEndpoint;
 import ch.gatzka.rest.request.account.RegisterRequest;
@@ -8,8 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static ch.gatzka.constants.Routes.ROUTE_ACCOUNT;
+
 @RestController
-@RequestMapping("/account")
+@RequestMapping(ROUTE_ACCOUNT)
 @RequiredArgsConstructor
 public class AccountController implements AccountEndpoint {
 

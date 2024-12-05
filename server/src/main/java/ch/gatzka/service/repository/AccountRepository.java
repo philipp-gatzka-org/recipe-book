@@ -19,4 +19,7 @@ public class AccountRepository extends SequencedRepository<AccountRecord, Intege
         return exists(ACCOUNT.EMAIL.eq(email));
     }
 
+    public AccountRecord getByEmail(String email) {
+        return get(ACCOUNT.EMAIL.eq(email));
+    }
 }

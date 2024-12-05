@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("jacoco")
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.lombok)
 }
@@ -25,12 +26,26 @@ dependencies {
     developmentOnly(libs.spring.boot.devtools)
 
     runtimeOnly(libs.database.postgres)
-    testRuntimeOnly(libs.database.h2)
+
+    testImplementation(libs.spring.boot.test)
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.testcontainers.junit)
+    testImplementation(libs.flyway)
+    testImplementation(libs.flyway.postgres)
+    testImplementation(libs.greenmail)
 
     // implementation(libs.spring.boot.actuator)
-    // testImplementation(libs.spring.boot.test)
-    // testImplementation(libs.spring.boot.testcontainers)
-    // testImplementation(libs.testcontainers.junit)
-    // testImplementation(libs.testcontainers.postgresql)
     // testRuntimeOnly(libs.junit.platform)
+}
+
+tasks {
+    jacocoTestReport {
+        dependsOn(test)
+    }
+    test {
+        useJUnitPlatform()
+        finalizedBy(jacocoTestReport)
+        jvmArgs("-XX:+EnableDynamicAgentLoading", "-Xshare:off")
+    }
 }

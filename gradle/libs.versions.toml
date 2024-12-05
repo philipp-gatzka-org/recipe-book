@@ -30,3 +30,5 @@ testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql" 
 junit-platform = { group = "org.junit.platform", name = "junit-platform-launcher" }
 prometheus = { group = "io.micrometer", name = "micrometer-registry-prometheus" }
 flyway-postgres = { group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flyway" }
+flyway = { group = "org.flywaydb", name = "flyway-core", version.ref = "flyway" }
+greenmail = { group = "com.icegreen", name = "greenmail-junit5", version = "1.6.5" }

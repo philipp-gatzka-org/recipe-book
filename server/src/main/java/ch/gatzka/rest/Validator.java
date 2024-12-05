@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.yaml.snakeyaml.util.Tuple;
 
+import static ch.gatzka.constants.Messages.EMAIL_DOES_NOT_EXIST;
+import static ch.gatzka.constants.Messages.EMAIL_EXISTS;
+import static ch.gatzka.constants.Messages.LANGUAGE_CODE_DOES_NOT_EXIST;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 @Service
 @RequiredArgsConstructor
 public final class Validator {
@@ -23,21 +28,21 @@ public final class Validator {
     public final void validateThat(Tuple<String, Callable<Boolean>>... validations) {
         for (Tuple<String, Callable<Boolean>> validation : validations) {
             if (!validation._2().call()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, validation._1());
+                throw new ResponseStatusException(BAD_REQUEST, validation._1());
             }
         }
     }
 
     public Tuple<String, Callable<Boolean>> emailDoesNotExist(String email) {
-        return new Tuple<>("EMAIL_EXISTS", () -> !accountRepository.existsByEmail(email));
+        return new Tuple<>(EMAIL_EXISTS, () -> !accountRepository.existsByEmail(email));
     }
 
     public Tuple<String, Callable<Boolean>> emailExists(String email) {
-        return new Tuple<>("EMAIL_DOES_NOT_EXIST", () -> accountRepository.existsByEmail(email));
+        return new Tuple<>(EMAIL_DOES_NOT_EXIST, () -> accountRepository.existsByEmail(email));
     }
 
     public Tuple<String, Callable<Boolean>> languageCodeExists(String languageCode) {
-        return new Tuple<>("LANGUAGE_CODE_DOES_NOT_EXIST", () -> languageRepository.existsByCode(languageCode));
+        return new Tuple<>(LANGUAGE_CODE_DOES_NOT_EXIST, () -> languageRepository.existsByCode(languageCode));
     }
 
 }

@@ -14,7 +14,7 @@ public class ExceptionHandling extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Void> temp(ResponseStatusException ex) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return ResponseEntity.of(ProblemDetail.forStatusAndDetail(ex.getStatusCode(), ex.getReason())).build();
     }
 

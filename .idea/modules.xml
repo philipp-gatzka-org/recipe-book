@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/recipe-book.iml" filepath="$PROJECT_DIR$/recipe-book.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/recipe-book.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/recipe-book.server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/recipe-book.server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/recipe-book.server.test.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%cyan(%d{dd.MM.yyyy HH:mm:ss}) | %highlight(%-5level) [%magenta(%29.29thread)] %40.40logger{0} | %msg %ex{full} %n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="ch.gatzka" level="DEBUG" />
+    <logger name="org.jooq.Constants" level="OFF"/>
+    <logger name="org.springframework" level="INFO" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

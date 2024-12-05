@@ -17,15 +17,11 @@ buildscript {
 }
 
 val postgresContainer =
-    if (tasks.jooqCodegen.name in project.gradle.startParameter.taskNames || tasks.flywayMigrate.name in project.gradle.startParameter.taskNames) {
-        PostgreSQLContainer<Nothing>("postgres:latest").apply {
-            withDatabaseName("recipe_book")
-            withUsername("postgres")
-            withPassword("postgres")
-            start()
-        }
-    } else {
-        null
+    PostgreSQLContainer<Nothing>("postgres:latest").apply {
+        withDatabaseName("recipe_book")
+        withUsername("postgres")
+        withPassword("postgres")
+        start()
     }
 
 dependencies {
@@ -36,9 +32,9 @@ dependencies {
 }
 
 flyway {
-    url = postgresContainer?.jdbcUrl
-    user = postgresContainer?.username
-    password = postgresContainer?.password
+    url = postgresContainer.jdbcUrl
+    user = postgresContainer.username
+    password = postgresContainer.password
     schemas = arrayOf("recipe_book")
 }
 
@@ -47,10 +43,10 @@ jooq {
         generator {
             database {
                 jdbc {
-                    url = postgresContainer?.jdbcUrl
+                    url = postgresContainer.jdbcUrl
                     driver = "org.postgresql.Driver"
-                    username = postgresContainer?.username
-                    password = postgresContainer?.password
+                    user = postgresContainer.username
+                    password = postgresContainer.password
                     inputSchema = "recipe_book"
                     isIncludeSequences = true
                     isIncludeSystemSequences = true
@@ -83,6 +79,9 @@ jooq {
 tasks {
     jooqCodegen {
         dependsOn(flywayMigrate)
+    }
+    compileJava {
+        dependsOn(jooqCodegen)
     }
 }
 
