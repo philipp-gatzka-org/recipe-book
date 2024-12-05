@@ -1,1 +1,0 @@
-create type member_state as enum ('INVITED', 'JOINED');

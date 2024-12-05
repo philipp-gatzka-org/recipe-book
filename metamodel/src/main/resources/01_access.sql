@@ -1,1 +1,0 @@
-create type access as enum ('OWNER', 'MEMBER');
