@@ -1,4 +1,15 @@
 [versions]
+flyway = "11.0.1"
+spring-boot = "3.4.1"
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version = "8.11"}
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
+
+[libraries]
+spring-boot-dependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "spring-boot" }
+postgresql-testcontainer = { group = "org.testcontainers", name = "postgresql" }
+postgresql-flyway = { group = "org.flywaydb", name = "flyway-database-postgresql", version.ref = "flyway" }
+postgresql-database = { group = "org.postgresql", name = "postgresql" }
+
+# flyway = { group = "org.flywaydb", name = "flyway-core", version.ref = "flyway" }
